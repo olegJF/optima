@@ -13,3 +13,12 @@ class PersonForm(forms.ModelForm):
     class Meta(object):
         model = Person
         fields = ('name','last_name','email', 'region', 'phones')
+        
+
+
+class NewPhoneForm(forms.ModelForm):
+    number = forms.CharField(label='Номер', required=True, widget=forms.TextInput(attrs={"class": 'form-control'}))
+    
+    class Meta(object):
+        model = Phone
+        fields = ('number',)

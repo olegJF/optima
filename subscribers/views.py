@@ -40,6 +40,9 @@ class PersonDetail(DetailView):
 
 class PersonCreate(CreateView):
     model = Person
+    form_class = PersonForm
+    template_name = 'subscribers/create.html'
+    success_url = '/'
 
 class PersonUpdate(UpdateView):
     model = Person
@@ -53,3 +56,10 @@ class PersonDelete(DeleteView):
     
     def get(self, request, *args, **kwargs):
             return self.post(request, *args, **kwargs)
+            
+            
+class NewPhoneCreate(CreateView):
+    model = Phone
+    form_class = NewPhoneForm
+    template_name = 'subscribers/create.html'
+    success_url = '/'
