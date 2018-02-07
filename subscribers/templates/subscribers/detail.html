@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% block title %}Телефонная книга{% endblock %}
+
+{% block content %}
+<div  class="container">
+    <h2 class="centr"><span>Об абоненте</span></h2>
+   <div class="row">
+        <div class="col-md-12 mx-auto">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Имя</td>
+                    <td>{{ object.name }}&nbsp;{{ object.last_name }}</td>
+                </tr>
+                <tr>
+                    <td>Телефоны</td>
+                    <td>{% for phone in object.phones.all %} <p>{{phone}} &nbsp;</p> {% endfor %}</td>
+                </tr>
+                <tr>
+                    <td>E-mail</td>
+                    <td>{{ object.email }}</td>
+                </tr>
+                <tr>
+                    <td>Область</td>
+                    <td>{{ object.region.name }}</td>
+                </tr>
+            </tbody>
+            </table>
+                
+                <p>Edit</p>
+                
+    
+        </div>
+    </div>
+</div>
+{% endblock %}

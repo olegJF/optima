@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% block title %}Телефонная книга{% endblock %}
+
+{% block content %}
+<div  class="container">
+    <h2 class="centr"><span>Phonebook</span></h2>
+   <div class="row">
+        <div class="col-md-12 mx-auto">
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th scope="col">Имя_Фамилия</th>
+                <th scope="col">№ Телефона</th>
+                <th scope="col">e-mail</th>
+                <th scope="col">Область</th>
+                <th scope="col"> Двойники</th>
+                <th scope="col"> Опция</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for object in objects_list %}
+                <tr>
+                    <th scope="row">{{ object.name }}&nbsp;{{ object.last_name }}</th>
+                    <td>{% for phone in object.phones.all %} <p>{{phone}} &nbsp;</p> {% endfor %}</td>
+                    <td>{{ object.email }}</td>
+                    <td>{{ object.region.name }}</td>
+                    <td>{% for key, value in contacts.items %}
+                            {% if object.id == key %}
+                                {{value.name}}
+                            {% endif %}
+                        {% endfor %} </td>
+                    <td>
+                    <a href="{%url 'update' pk=object.id %}"><button type="button" class='btn btn-info btn-sm' >Edit</button></a>
+                    <a href="{%url 'delete' pk=object.id %}"><button type="button" class='btn btn-danger btn-sm' >Delete</button></a>
+                    
+                    </td>
+                </tr>
+              
+            {% endfor %}
+            </tbody>
+            </table>
+    
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
