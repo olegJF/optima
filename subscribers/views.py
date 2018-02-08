@@ -61,5 +61,5 @@ class PersonDelete(DeleteView):
 class NewPhoneCreate(CreateView):
     model = Phone
     form_class = NewPhoneForm
-    template_name = 'subscribers/create.html'
-    success_url = '/'
+    template_name = 'subscribers/newnumber.html'
+    success_url = '/add/'

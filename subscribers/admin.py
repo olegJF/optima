@@ -15,12 +15,10 @@ class PersonAdmin(admin.ModelAdmin):
     #list_display = ('name','last_name','email', 'region', 'phones')
 
 class PhoneAdmin(admin.ModelAdmin):
-    # inlines = [
-    #     PhoneInLine,
-    # ]
-    # 
-    #exclude = ('only_for_one',)
-    pass     
+    class Meta:
+        model = Phone
+    exclude = ('only_for_one', 'timestamp')
+        
         
 admin.site.register(Region)
 admin.site.register(Phone, PhoneAdmin)

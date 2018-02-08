@@ -1,16 +1,15 @@
 {% extends 'base.html' %}
 {%load staticfiles%}
-{% block title %}Телефонная книга{% endblock %}
+{% block title %}Добавить номер телефона{% endblock %}
 
 {% block content %}
 <div  class="container">
-    <h2 class="centr"><span>Обновить</span></h2>
+    <h2 class="centr"><span>Добавить номер телефона</span></h2>
    <div class="row">
         <div class="col-md-8 mx-auto left">
-            <a href="{%url 'new-number' %}"> <h3>Добавить новый номер </h3></a>
             <form action="" method="post">{% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class='btn btn-success btn-lg' >OK</button>
+                <button type="submit" class='btn btn-success btn-lg' >Добавить</button>
             </form>
                 
     
@@ -18,5 +17,3 @@
     </div>
 </div>
 {% endblock %}
-
-

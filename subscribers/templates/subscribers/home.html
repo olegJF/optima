@@ -4,7 +4,7 @@
 
 {% block content %}
 <div  class="container">
-    <h2 class="centr"><span>Phonebook</span></h2>
+    <h2 class="centr"><span>Телефонная книга</span></h2>
    <div class="row">
         <div class="col-md-12 mx-auto">
             <table class="table table-bordered">
@@ -14,22 +14,28 @@
                 <th scope="col">№ Телефона</th>
                 <th scope="col">e-mail</th>
                 <th scope="col">Область</th>
-                <th scope="col"> Двойники</th>
+                <th scope="col"> Совместные номера</th>
                 <th scope="col"> Опция</th>
                 </tr>
             </thead>
             <tbody>
             {% for object in objects_list %}
                 <tr>
-                    <th scope="row">{{ object.name }}&nbsp;{{ object.last_name }}</th>
+                    <th scope="row"><a href="{%url 'detail' pk=object.id %}">{{ object.name }}&nbsp;{{ object.last_name }}</a></th>
                     <td>{% for phone in object.phones.all %} <p>{{phone}} &nbsp;</p> {% endfor %}</td>
                     <td>{{ object.email }}</td>
                     <td>{{ object.region.name }}</td>
-                    <td>{% for key, value in contacts.items %}
-                            {% if object.id == key %}
-                                {{value.name}}
-                            {% endif %}
-                        {% endfor %} </td>
+                    <td>{% if object.id in contacts %} 
+							{% for key, value in contacts.items %}
+								{% if object.id == key %}
+									{%for val in value%}
+										<a href="{%url 'detail' pk=val.id %}">{{val.name}}&nbsp;{{val.last_name}}</a>&nbsp;&nbsp;
+										
+									{% endfor %}
+								{% endif %}
+							{% endfor %} 
+						{% endif %}
+						</td>
                     <td>
                     <a href="{%url 'update' pk=object.id %}"><button type="button" class='btn btn-info btn-sm' >Edit</button></a>
                     <a href="{%url 'delete' pk=object.id %}"><button type="button" class='btn btn-danger btn-sm' >Delete</button></a>
@@ -40,7 +46,31 @@
             {% endfor %}
             </tbody>
             </table>
-    
+            <a href="{%url 'add' %}"><button type="button" class='btn btn-primary' >Добавить нового пользователя</button></a>
+            <div id="navigation">
+                <div class="clearfix">
+                    {% if  objects_list.paginator.page_range > 1 %}
+                        {% if objects_list.has_previous %}
+                            <a class="prev page-numbers" href="{% url 'home' objects_list.previous_page_number %}">&laquo; </a>
+                        {% else %}
+                
+                        {% endif %}
+                        {% for page in objects_list.paginator.page_range %}
+                            {% if page == objects_list.number %}
+                                <span class="page-numbers current">{{page}}</span>
+                            {% else %}
+                                <a class="page-numbers" href="{% url 'home' page %}">{{page}}</a>
+                            {% endif %}
+                        {% endfor %}
+                        {% if objects_list.has_next %}
+                            <a class="next page-numbers" href="{% url 'home' objects_list.next_page_number %}">&raquo; </a>
+                        {% else %}
+                
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>
