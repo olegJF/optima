@@ -3,9 +3,11 @@
 from unidecode import unidecode
 from django.db import models
 from django.core.validators import RegexValidator
+from django.conf import settings
 
-from django.db.models.signals import m2m_changed
+from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.mail import send_mail
 
 
 # Create your models here.
@@ -29,11 +31,13 @@ class Region(models.Model):
 
 class Phone(models.Model):
     number = models.CharField(max_length=10, unique=True, validators=[RegexValidator(r'^\d{1,10}$')])
+    timestamp = models.DateTimeField(auto_now_add=True)
     only_for_one = models.BooleanField(default=True, verbose_name='Используется только одним абонентом?')
     
     class Meta:
         verbose_name = 'Телефон'
         verbose_name_plural = 'Телефоны'
+        ordering = ['-timestamp']
 
     def __str__(self):
         return str(self.number)
@@ -57,12 +61,23 @@ class Person(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={"pk": self.pk})
         
-    # b =Person.objects.all().first()
-    # p =  b.phones.all().first()
-    # p.names.count() if >2 номер используется ещё кем то
-  
+    
   
 
-
+def send_email_to_new_user(sender, instance, created, *args, **kwargs):
+    if created:
+        subject = 'PhoneBook'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient_list = [instance.email]
+        txt_ = 'Поздравляю! Вы были добавленны в телефонную книгу!'
         
+        sent_mail = send_mail(
+                        subject,
+                        txt_,
+                        from_email,
+                        recipient_list,
+                        fail_silently=False)
+        return sent_mail
+    return False
 
+# post_save.connect(send_email_to_new_user, sender=Person) 
