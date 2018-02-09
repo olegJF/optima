@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, InvalidPage
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Person, Phone
@@ -19,17 +19,12 @@ def home(request, page_number=1):
                 _names = Person.objects.filter(phones=phone.id).exclude(id=item.id)
                 
                 if _names.exists():
-                    print('ph',phone,_names)
+                    #print('ph',phone,_names)
                     contacts[item.id]=_names
-                    
-                    
-                    
-                    
-                    
                     
     except InvalidPage:
         return redirect('/1/', page_number=1)
-
+    print(item_list)
     return render(request, 'subscribers/home.html', {'objects_list': item_list, 'contacts':contacts, 'page_number': page_number})
     
 class PersonDetail(DetailView):
@@ -43,12 +38,40 @@ class PersonCreate(CreateView):
     form_class = PersonForm
     template_name = 'subscribers/create.html'
     success_url = '/'
+    
+
+def add_person(request):
+    if request.method == "POST":
+        form = PersonForm(request.POST or None)
+        if form.is_valid():
+            # instance = form.save(commit=False)
+            form.save()
+            # messages.success(request, '')
+            return redirect('/')
+        
+    else:
+        form = PersonForm()
+        context = {
+            "form": form, 
+            'action':'Добавить нового пользователя.'
+        }
+    return render(request, 'subscribers/create.html', context)
 
 class PersonUpdate(UpdateView):
     model = Person
     form_class = PersonForm
     template_name = 'subscribers/create.html'
     success_url = '/'
+    
+def edit_person(request, pk):
+    person = get_object_or_404(Person, id=pk)
+    form = PersonForm(request.POST or None, instance=person)
+    context = {'object': person, 'form': form, 'action':'Редактирование пользователя.'}
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        # messages.success(request, 'Отредактировано!')
+        return redirect('/')
+    return render(request, 'subscribers/update.html', context)
 
 class PersonDelete(DeleteView):
     model = Person
