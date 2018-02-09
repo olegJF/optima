@@ -5,9 +5,15 @@ from .models import Person, Phone
 from django.core.urlresolvers import reverse_lazy
 from .forms import *
 
-
+SORT_LIST = ['last_name', '-last_name', 'name',
+            '-name', 'email', '-email', 
+            'region__name', 'region__name',
+             'phones__number', 'phones__number']
+             
 def home(request, page_number=1):
-    all_persons = Person.objects.all()
+    sort = request.GET.get('sort', 'last_name')
+    if sort not in SORT_LIST: sort = 'last_name'
+    all_persons = Person.objects.all().order_by(sort)
     current_page = Paginator(all_persons, 10)
     try:
         item_list = current_page.page(page_number)
