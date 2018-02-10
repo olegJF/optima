@@ -33,10 +33,10 @@ $(document).ready(function(){
         data: updateFormData,
         success: function(data){
             console.log('Success!')
-            
+            updateForm[0].reset()
             $.alert({
-                title: "Успешно!",
-                content: " ",
+                title: "Успешно! ",
+                content: "Перейдите на главную страницу, чтобы увидеть результат",
                 theme: "modern",
                 })
             setTimeout(function(){
