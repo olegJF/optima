@@ -74,15 +74,20 @@ class PersoneTestCase(TestCase):
     
     def test_add_phone_view(self):
         response = self.client.post('/new-number/', {'number': '0444444444'})
-        print(response.context)
         ph4=Phone.objects.get(number='0444444444')
         self.assertEqual(ph4.number, '0444444444')
 
      
     def test_delete_user_view(self):
-        user4 = Person.objects.get(email='vm@ua.fm')
-        response = self.client.get('/delete/{id}/'.format(id=user4.id))
-        user5 = Person.objects.filter(id=user4.id).first()
-        self.assertEqual(user5, None)
+        user = Person.objects.get(email='vm@ua.fm')
+        response = self.client.get('/delete/{id}/'.format(id=user.id))
+        user_ = Person.objects.filter(id=user.id).first()
+        self.assertEqual(user_, None)
 
-# get_absolute_url
+    def test_get_absolute_url(self):
+        user = Person.objects.get(email='st@ua.fm')
+        path = '/detail/{id}/'.format(id=user.id)
+        self.assertEqual(path, user.get_absolute_url())
+        response = self.client.get(path)
+        self.assertEqual(response.status_code, 200)
+        

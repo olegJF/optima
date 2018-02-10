@@ -4,6 +4,7 @@ from unidecode import unidecode
 from django.db import models
 from django.core.validators import RegexValidator
 from django.conf import settings
+from django.urls import reverse
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
