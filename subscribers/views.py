@@ -11,6 +11,7 @@ SORT_LIST = ['last_name', '-last_name', 'name',
              'phones__number', 'phones__number']
              
 def home(request, page_number=1):
+    #form = NewPhoneForm()
     sort = request.GET.get('sort', 'last_name')
     if sort not in SORT_LIST: sort = 'last_name'
     all_persons = Person.objects.all().order_by(sort)
@@ -30,8 +31,13 @@ def home(request, page_number=1):
                     
     except InvalidPage:
         return redirect('/1/', page_number=1)
-    print(item_list)
-    return render(request, 'subscribers/home.html', {'objects_list': item_list, 'contacts':contacts, 'page_number': page_number})
+    context = {
+            #"form": form, 
+            'objects_list': item_list,
+            'contacts':contacts,
+            'page_number': page_number
+        }
+    return render(request, 'subscribers/home.html', context)
     
 class PersonDetail(DetailView):
     queryset = Person.objects.all()
