@@ -53,7 +53,7 @@
 							{% for key, value in contacts.items %}
 								{% if object.id == key %}
 									{%for val in value%}
-										<a href="{%url 'detail' pk=val.id %}">{{val.name}}&nbsp;{{val.last_name}}</a>&nbsp;&nbsp;
+										<a href="{%url 'detail' pk=val.id %}">{{val.name}}&nbsp;{{val.last_name}}</a>&nbsp;&nbsp;<br/>
 										
 									{% endfor %}
 								{% endif %}
