@@ -7,52 +7,41 @@
     <h2 class="centr"><span>Телефонная книга</span></h2>
     
    <div class="row">
-        <div class="col-md-12 mx-auto">
+        <div class="col">
             <table class="table table-bordered">
             <thead>
                 <tr>
-                <th scope="col">Имя</th>
-                <th scope="col">Фамилия</th>
-                <th scope="col">№ Телефона</th>
-                <th scope="col">e-mail</th>
-                <th scope="col">Область</th>
+                <th scope="col">
+					<a href="{%url 'home' %}?sort=name"><i class="fas fa-angle-up"></i></a><br/>
+					&nbsp;Имя&nbsp;<br/>
+					<a href="{%url 'home' %}?sort=-name"><i class="fas fa-angle-down"></i></a>
+				</th>
+                <th scope="col">
+					<a href="{%url 'home' %}?sort=last_name"><i class="fas fa-angle-up"></i></a><br/>
+					&nbsp;Фамилия&nbsp;<br/>
+					<a href="{%url 'home' %}?sort=-last_name"><i class="fas fa-angle-down"></i></a>
+				</th>
+                <th scope="col">
+					<a href="{%url 'home' %}?sort=phones__number"><i class="fas fa-angle-up"></i></a><br/>
+					&nbsp;№ Телефона&nbsp;<br/>
+					<a href="{%url 'home' %}?sort=-phones__number"><i class="fas fa-angle-down"></i></a>
+				</th>
+                <th scope="col">
+					<a href="{%url 'home' %}?sort=email"><i class="fas fa-angle-up"></i></a><br/>
+					&nbsp;e-mail&nbsp;<br/>
+					<a href="{%url 'home' %}?sort=-email"><i class="fas fa-angle-down"></i></a>
+				</th>
+                <th scope="col">
+					<a href="{%url 'home' %}?sort=region__name"><i class="fas fa-angle-up"></i></a><br/>
+					&nbsp;Область&nbsp;<br/>
+					<a href="{%url 'home' %}?sort=-region__name"><i class="fas fa-angle-down"></i></a>
+				</th>
                 <th scope="col"> Совместные номера</th>
                 <th scope="col"> Опция</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td colspan='5' >
-                        Сортировать 
-                    </td >
-                    <td colspan='2' ></td >
-                    
-                </tr>
-                <tr>
-                    <td >
-                        <a href="{%url 'home' %}?sort=name">+</a>&nbsp;|&nbsp;
-                        <a href="{%url 'home' %}?sort=-name">-</a>
-                    </td >
-                    <td >
-                        <a href="{%url 'home' %}?sort=last_name">+</a>&nbsp;|&nbsp;
-                        <a href="{%url 'home' %}?sort=-last_name">-</a>
-                    </td >
-                    <td >
-                        <a href="{%url 'home' %}?sort=phones__number">+</a>&nbsp;|&nbsp;
-                        <a href="{%url 'home' %}?sort=-phones__number">-</a>
-                    </td >
-                    <td >
-                        <a href="{%url 'home' %}?sort=email">+</a>&nbsp;|&nbsp;
-                        <a href="{%url 'home' %}?sort=-email">-</a>
-                    </td >
-                    <td >
-                        <a href="{%url 'home' %}?sort=region__name">+</a>&nbsp;|&nbsp;
-                        <a href="{%url 'home' %}?sort=-region__name">-</a>
-                    </td >
-                    <td colspan='2'></td >
-                    
-            
-                </tr>
+                
             {% for object in objects_list %}
                 <tr>
                     <td ><a href="{%url 'detail' pk=object.id %}">{{ object.name }} </a></td>
