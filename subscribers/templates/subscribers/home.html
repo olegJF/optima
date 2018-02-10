@@ -5,75 +5,75 @@
 {% block content %}
 <div  class="container">
     <h2 class="centr"><span>Телефонная книга</span></h2>
-    
+   
    <div class="row">
         <div class="col">
             <table class="table table-bordered">
-            <thead>
-                <tr>
-                <th scope="col">
-					<a href="{%url 'home' %}?sort=name"><i class="fas fa-angle-up"></i></a><br/>
-					&nbsp;Имя&nbsp;<br/>
-					<a href="{%url 'home' %}?sort=-name"><i class="fas fa-angle-down"></i></a>
-				</th>
-                <th scope="col">
-					<a href="{%url 'home' %}?sort=last_name"><i class="fas fa-angle-up"></i></a><br/>
-					&nbsp;Фамилия&nbsp;<br/>
-					<a href="{%url 'home' %}?sort=-last_name"><i class="fas fa-angle-down"></i></a>
-				</th>
-                <th scope="col">
-					<a href="{%url 'home' %}?sort=phones__number"><i class="fas fa-angle-up"></i></a><br/>
-					&nbsp;№ Телефона&nbsp;<br/>
-					<a href="{%url 'home' %}?sort=-phones__number"><i class="fas fa-angle-down"></i></a>
-				</th>
-                <th scope="col">
-					<a href="{%url 'home' %}?sort=email"><i class="fas fa-angle-up"></i></a><br/>
-					&nbsp;e-mail&nbsp;<br/>
-					<a href="{%url 'home' %}?sort=-email"><i class="fas fa-angle-down"></i></a>
-				</th>
-                <th scope="col">
-					<a href="{%url 'home' %}?sort=region__name"><i class="fas fa-angle-up"></i></a><br/>
-					&nbsp;Область&nbsp;<br/>
-					<a href="{%url 'home' %}?sort=-region__name"><i class="fas fa-angle-down"></i></a>
-				</th>
-                <th scope="col"> Совместные номера</th>
-                <th scope="col"> Опция</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-            {% for object in objects_list %}
-                <tr>
-                    <td ><a href="{%url 'detail' pk=object.id %}">{{ object.name }} </a></td>
-                    <td> {{ object.last_name }}</td>
-                    <td>{% for phone in object.phones.all %} <p>{{phone}} &nbsp;</p> {% endfor %}</td>
-                    <td>{{ object.email }}</td>
-                    <td>{{ object.region.name }}</td>
-                    <td>{% if object.id in contacts %} 
-							{% for key, value in contacts.items %}
-								{% if object.id == key %}
-									{%for val in value%}
-										<a href="{%url 'detail' pk=val.id %}">{{val.name}}&nbsp;{{val.last_name}}</a>&nbsp;&nbsp;<br/>
-										
-									{% endfor %}
-								{% endif %}
-							{% endfor %} 
-						{% endif %}
-						</td>
-                    <td>
-                    <a href="{%url 'update' pk=object.id %}"><button type="button" class='btn btn-info btn-sm' >Edit</button></a>
-                    <a href="{%url 'delete' pk=object.id %}"><button type="button" class='btn btn-danger btn-sm' >Delete</button></a>
+                <thead>
+                    <tr>
+                    <th scope="col">
+                        <a href="{%url 'home' %}?sort=name"><i class="fas fa-angle-up"></i></a><br/>
+                        &nbsp;Имя&nbsp;<br/>
+                        <a href="{%url 'home' %}?sort=-name"><i class="fas fa-angle-down"></i></a>
+                    </th>
+                    <th scope="col">
+                        <a href="{%url 'home' %}?sort=last_name"><i class="fas fa-angle-up"></i></a><br/>
+                        &nbsp;Фамилия&nbsp;<br/>
+                        <a href="{%url 'home' %}?sort=-last_name"><i class="fas fa-angle-down"></i></a>
+                    </th>
+                    <th scope="col">
+                        <a href="{%url 'home' %}?sort=phones__number"><i class="fas fa-angle-up"></i></a><br/>
+                        &nbsp;№ Телефона&nbsp;<br/>
+                        <a href="{%url 'home' %}?sort=-phones__number"><i class="fas fa-angle-down"></i></a>
+                    </th>
+                    <th scope="col">
+                        <a href="{%url 'home' %}?sort=email"><i class="fas fa-angle-up"></i></a><br/>
+                        &nbsp;e-mail&nbsp;<br/>
+                        <a href="{%url 'home' %}?sort=-email"><i class="fas fa-angle-down"></i></a>
+                    </th>
+                    <th scope="col">
+                        <a href="{%url 'home' %}?sort=region__name"><i class="fas fa-angle-up"></i></a><br/>
+                        &nbsp;Область&nbsp;<br/>
+                        <a href="{%url 'home' %}?sort=-region__name"><i class="fas fa-angle-down"></i></a>
+                    </th>
+                    <th scope="col"> Совместные номера</th>
+                    <th scope="col"> Опция</th>
+                    </tr>
+                </thead>
+                <tbody>
                     
-                    </td>
-                </tr>
-              
-            {% endfor %}
-            </tbody>
+                    {% for object in objects_list %}
+                        <tr>
+                            <td ><a href="{%url 'detail' pk=object.id %}">{{ object.name }} </a></td>
+                            <td> {{ object.last_name }}</td>
+                            <td>{% for phone in object.phones.all %} <p>{{phone}} &nbsp;</p> {% endfor %}</td>
+                            <td>{{ object.email }}</td>
+                            <td>{{ object.region.name }}</td>
+                            <td>{% if object.id in contacts %} 
+                                    {% for key, value in contacts.items %}
+                                        {% if object.id == key %}
+                                            {%for val in value%}
+                                                <a href="{%url 'detail' pk=val.id %}">{{val.name}}&nbsp;{{val.last_name}}</a>&nbsp;&nbsp;<br/>
+                                                
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %} 
+                                {% endif %}
+                                </td>
+                            <td>
+                            <a href="{%url 'update' pk=object.id %}"><button type="button" class='btn btn-info btn-sm' >Edit</button></a>
+                            <a href="{%url 'delete' pk=object.id %}"><button type="button" class='btn btn-danger btn-sm' >Delete</button></a>
+                            
+                            </td>
+                        </tr>
+                    
+                    {% endfor %}
+                </tbody>
             </table>
-            <a href="{%url 'add' %}"><button type="button" class='btn btn-primary' >Добавить нового пользователя</button></a>
+           <a href="{%url 'add' %}"><button type="button" class='btn btn-primary' >Добавить нового пользователя</button></a> 
             
                         
-            
+            <!-- Paginator -->
             <div id="navigation" class="container">
                 <div class="row">
                     
@@ -83,7 +83,7 @@
                         
                                     {% if objects_list.has_previous %}
                                         <li class="page-item">
-                                        <a class="page-link" href="{% url 'home' objects_list.previous_page_number %}" 
+                                        <a class="page-link" href="{% url 'home' objects_list.previous_page_number %}?sort={{request.GET.sort}}"  
                                         aria-label="Previous"> 
                                         <span aria-hidden="true">&laquo;</span>
                                         <span class="sr-only">Previous</span>
@@ -101,7 +101,7 @@
                                         {% else %}
                                             
                                             <li class="page-item">
-                                                <a class="page-link" href="{% url 'home' page %}">
+                                                <a class="page-link" href="{% url 'home' page %}?sort={{request.GET.sort}}">
                                                 {{page}}
                                                 </a>
                                             </li>
@@ -109,7 +109,7 @@
                                     {% endfor %}
                                     {% if objects_list.has_next %}
                                         <li class="page-item">
-                                        <a class="page-link" href="{% url 'home' objects_list.next_page_number %}" aria-label="Next">
+                                        <a class="page-link" href="{% url 'home' objects_list.next_page_number %}?sort={{request.GET.sort}}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                             <span class="sr-only">Next</span>
                                         </a>
@@ -124,9 +124,29 @@
                     </div>
                 </div>
             </div>
+
+            <!-- <div  class="container">
+                <div class="row">
+                    <div class="col-md-8 mx-auto">
+                        <form class="phone-data-form" action="{% url 'add' %}" method="post">{% csrf_token %}
+                            <table class="table">
+                                <tbody>
+                                    {{ form.as_table }}
+                                </tbody>
+                            </table>
+                            <button type="submit" class='btn btn-success btn-lg' >Добавить номер телефона</button>
+                        </form>
+                           
+                
+                    </div>
+                </div>
+                
+            </div> -->
             
         </div>
     </div>
+
+
 </div>
 {% endblock %}
 
