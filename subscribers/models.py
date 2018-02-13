@@ -80,5 +80,5 @@ def send_email_to_new_user(sender, instance, created, *args, **kwargs):
                         fail_silently=False)
         return sent_mail
     return False
-
+# Для отправки писем расскоментировать строчку ниже.
 # post_save.connect(send_email_to_new_user, sender=Person) 
