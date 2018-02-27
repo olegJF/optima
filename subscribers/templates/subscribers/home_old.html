@@ -36,7 +36,7 @@
                         &nbsp;Область&nbsp;<br/>
                         <a href="{%url 'home' %}?sort=-region__name"><i class="fas fa-angle-down"></i></a>
                     </th>
-                    
+                    <th scope="col"> Совместные номера</th>
                     <th scope="col"> Опция</th>
                     </tr>
                 </thead>
@@ -49,10 +49,20 @@
                             <td>{% for phone in object.phones.all %} <p>{{phone}} &nbsp;</p> {% endfor %}</td>
                             <td>{{ object.email }}</td>
                             <td>{{ object.region.name }}</td>
-                            
+                            <td>{% if object.id in contacts %} 
+                                    {% for key, value in contacts.items %}
+                                        {% if object.id == key %}
+                                            {%for val in value%}
+                                                <a href="{%url 'detail' pk=val.id %}">{{val.name}}&nbsp;{{val.last_name}}</a>&nbsp;&nbsp;<br/>
+                                                
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %} 
+                                {% endif %}
+                                </td>
                             <td>
-                            <a href="{%url 'update' pk=object.id %}"><button type="button" class='btn btn-info btn-sm' >Редактировать</button></a>
-                            <a href="{%url 'delete' pk=object.id %}"><button type="button" class='btn btn-danger btn-sm' >Удалить</button></a>
+                            <a href="{%url 'update' pk=object.id %}"><button type="button" class='btn btn-info btn-sm' >Edit</button></a>
+                            <a href="{%url 'delete' pk=object.id %}"><button type="button" class='btn btn-danger btn-sm' >Delete</button></a>
                             
                             </td>
                         </tr>

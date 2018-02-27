@@ -7,9 +7,70 @@
     <h2 class="centr">{{action}}</h2>
    <div class="row">
         <div class="col-md-8 mx-auto left">
-            <a href="{%url 'new-number' %}"> <h3>Добавить новый номер </h3></a>
+           
             <form class="update-data-form" action="" method="post">{% csrf_token %}
-                {{ form.as_p }}
+                <div class="fieldWrapper">
+                    {{ form.name.errors }}
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.last_name.errors }}
+                    {{ form.last_name.label_tag }}
+                    {{ form.last_name }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.email.errors }}
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.region.errors }}
+                    {{ form.region.label_tag }}
+                    <table>
+                    <tr>
+                    {% for radio in form.region %}
+                        
+                        <td>&nbsp;</td>
+                       
+                            
+                            <td><span class="radio">{{ radio.tag }}</span></td>
+                            <td>{{ radio.choice_label }}</td>
+                        
+                        <td>&nbsp;</td>
+                        {% if forloop.counter|divisibleby:4 %}
+                            </tr><tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tr>
+                    </table>
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.phone.errors }}
+                    {{ form.phone.label_tag }}
+                    {{ form.phone }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.phones.errors }}
+                    {{ form.phones.label_tag }}
+                    <table>
+                    <tr>
+                    {% for radio in form.phones %}
+                        
+                        <td>&nbsp;</td>
+                        
+                            
+                            <td><span class="radio">{{ radio.tag }}</span></td>
+                            <td>{{ radio.choice_label }}</td>
+                       
+                        <td>&nbsp;</td>
+                        {% if forloop.counter|divisibleby:4 %}
+                            </tr><tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tr>
+                    </table>
+                </div>
           
                 <button type="submit" class='btn btn-success btn-lg' >OK</button>
             </form>

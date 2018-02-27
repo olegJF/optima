@@ -2,7 +2,6 @@
 
 from unidecode import unidecode
 from django.db import models
-from django.core.validators import RegexValidator
 from django.conf import settings
 from django.urls import reverse
 
@@ -15,9 +14,9 @@ from django.core.mail import send_mail
 
 class Region(models.Model):
     name = models.CharField(max_length=50, verbose_name = 'Область')
-    slug = models.CharField(max_length=50, verbose_name='Транслит', blank=True)
+    
 
-    class Meta():
+    class Meta:
         verbose_name = 'Область'
         verbose_name_plural = 'области'
         ordering = ['name']
@@ -25,20 +24,17 @@ class Region(models.Model):
     def __str__(self):
         return self.name
 
-    def save(self, *args, **kwargs):
-        self.slug = '{}'.format(unidecode(self.name))
-        super(Region, self).save(*args, **kwargs)
+
 
 
 class Phone(models.Model):
-    number = models.CharField(max_length=10, unique=True, validators=[RegexValidator(r'^\d{1,10}$')])
-    timestamp = models.DateTimeField(auto_now_add=True)
-    only_for_one = models.BooleanField(default=True, verbose_name='Используется только одним абонентом?')
+    number = models.CharField(max_length=10, unique=True, )
+   
     
     class Meta:
         verbose_name = 'Телефон'
         verbose_name_plural = 'Телефоны'
-        ordering = ['-timestamp']
+        ordering = ['number']
 
     def __str__(self):
         return str(self.number)
